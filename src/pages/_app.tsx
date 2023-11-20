@@ -1,8 +1,15 @@
 import '@/styles/globals.css';
+import { CssBaseline, ThemeProvider, createTheme } from '@mui/material';
 import type { AppProps } from 'next/app';
-import { Inter } from 'next/font/google';
+import { Roboto } from 'next/font/google';
 
-const inter = Inter({ subsets: ['latin'] });
+const roboto = Roboto({ subsets: ['latin'], weight: ['300', '400', '500', '700'] });
+
+const basicTheme = createTheme({
+  palette: {
+    mode: 'dark',
+  },
+});
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -10,12 +17,15 @@ export default function App({ Component, pageProps }: AppProps) {
       <style jsx global>
         {`
           html {
-            font-family: ${inter.style.fontFamily};
+            font-family: ${roboto.style.fontFamily};
           }
         `}
       </style>
 
-      <Component {...pageProps} />
+      <ThemeProvider theme={basicTheme}>
+        <CssBaseline />
+        <Component {...pageProps} />
+      </ThemeProvider>
     </>
   );
 }
