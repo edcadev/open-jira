@@ -1,12 +1,12 @@
-import { Button } from '@mui/material';
+import { Typography } from '@mui/material';
 import type { NextPage } from 'next';
 
 const HomePage: NextPage = () => {
   return (
     <div>
-      <h1>Integrate Material UI</h1>
-
-      <Button variant="contained">Hello world</Button>
+      <Typography variant="h1" color="primary">
+        Integrate Material UI
+      </Typography>
     </div>
   );
 };

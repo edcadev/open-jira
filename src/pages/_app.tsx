@@ -1,15 +1,14 @@
-import '@/styles/globals.css';
-import { CssBaseline, ThemeProvider, createTheme } from '@mui/material';
-import type { AppProps } from 'next/app';
 import { Roboto } from 'next/font/google';
 
-const roboto = Roboto({ subsets: ['latin'], weight: ['300', '400', '500', '700'] });
+import { CssBaseline, ThemeProvider } from '@mui/material';
 
-const basicTheme = createTheme({
-  palette: {
-    mode: 'dark',
-  },
-});
+import type { AppProps } from 'next/app';
+
+import { lightTheme } from '@/themes';
+
+import '@/styles/globals.css';
+
+const roboto = Roboto({ subsets: ['latin'], weight: ['300', '400', '500', '700'] });
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -22,7 +21,7 @@ export default function App({ Component, pageProps }: AppProps) {
         `}
       </style>
 
-      <ThemeProvider theme={basicTheme}>
+      <ThemeProvider theme={lightTheme}>
         <CssBaseline />
         <Component {...pageProps} />
       </ThemeProvider>
