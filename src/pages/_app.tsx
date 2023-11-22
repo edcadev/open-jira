@@ -6,9 +6,10 @@ import { CssBaseline, ThemeProvider } from '@mui/material';
 
 import type { AppProps } from 'next/app';
 
-import { darkTheme } from '@/themes';
-
 import { UIProvider } from '@/context/ui';
+import { EntriesProvider } from '@/context/entries';
+
+import { darkTheme } from '@/themes';
 
 const roboto = Roboto({ subsets: ['latin'], weight: ['300', '400', '500', '700'] });
 
@@ -23,12 +24,14 @@ export default function App({ Component, pageProps }: AppProps) {
         `}
       </style>
 
-      <UIProvider>
-        <ThemeProvider theme={darkTheme}>
-          <CssBaseline />
-          <Component {...pageProps} />
-        </ThemeProvider>
-      </UIProvider>
+      <EntriesProvider>
+        <UIProvider>
+          <ThemeProvider theme={darkTheme}>
+            <CssBaseline />
+            <Component {...pageProps} />
+          </ThemeProvider>
+        </UIProvider>
+      </EntriesProvider>
     </>
   );
 }
