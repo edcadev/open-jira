@@ -16,7 +16,10 @@ const roboto = Roboto({ subsets: ['latin'], weight: ['300', '400', '500', '700']
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
-      <style jsx global>
+      <style
+        jsx
+        global
+      >
         {`
           html {
             font-family: ${roboto.style.fontFamily};

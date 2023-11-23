@@ -13,7 +13,7 @@
   },
   "rules": {
     "prettier/prettier": "error",
-    "arrow-body-style": ["error", "always"],
+    "arrow-body-style": "off",
     "react/function-component-definition": [
       2,
       {

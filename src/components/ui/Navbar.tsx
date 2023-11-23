@@ -11,7 +11,11 @@ export const Navbar = () => {
   return (
     <AppBar position="sticky">
       <Toolbar>
-        <IconButton size="large" edge="start" onClick={openSideMenu}>
+        <IconButton
+          size="large"
+          edge="start"
+          onClick={openSideMenu}
+        >
           <MenuOutlinedIcon />
         </IconButton>
 
