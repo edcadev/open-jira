@@ -18,19 +18,19 @@ interface Props {
 const ENTRIES_INITIAL_STATE: EntriesState = {
   entries: [
     {
-      _id: crypto.randomUUID(),
+      id: crypto.randomUUID(),
       description: 'Pendiente: In tempor cupidatat adipisicing Lorem cupidatat ex.',
       status: 'pending',
       createdAt: Date.now(),
     },
     {
-      _id: crypto.randomUUID(),
+      id: crypto.randomUUID(),
       description: 'En-Progreso: Magna pariatur culpa et in elit irure ad aliquip nulla.',
       status: 'in-progress',
       createdAt: Date.now() - 1000000,
     },
     {
-      _id: crypto.randomUUID(),
+      id: crypto.randomUUID(),
       description: 'Terminadas: Excepteur exercitation quis consequat quis non nulla incididunt esse.',
       status: 'finished',
       createdAt: Date.now() - 100000,
@@ -39,10 +39,21 @@ const ENTRIES_INITIAL_STATE: EntriesState = {
 };
 
 export const EntriesProvider: FC<Props> = ({ children }) => {
-  const [state] = useReducer(entriesReducer, ENTRIES_INITIAL_STATE);
+  const [state, dispatch] = useReducer(entriesReducer, ENTRIES_INITIAL_STATE);
+
+  const addNewEntry = (description: string) => {
+    const newEntry: Entry = {
+      id: crypto.randomUUID(),
+      description,
+      createdAt: Date.now(),
+      status: 'pending',
+    };
+
+    dispatch({ type: '[Entry] Add-Entry', payload: newEntry });
+  };
 
   const sideMenuOpen = useMemo((): ContextProps => {
-    return { ...state };
+    return { ...state, addNewEntry };
   }, [state]);
 
   return <EntriesContext.Provider value={sideMenuOpen}>{children}</EntriesContext.Provider>;

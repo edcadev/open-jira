@@ -1,7 +1,7 @@
 /* eslint-disable import/no-cycle */
 
-export * from './Navbar';
-export * from './Sidebar';
-
-export * from './EntryList';
 export * from './EntryCard';
+export * from './EntryList';
+export * from './Navbar';
+export * from './NewEntry';
+export * from './Sidebar';
