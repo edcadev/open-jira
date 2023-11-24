@@ -52,8 +52,12 @@ export const EntriesProvider: FC<Props> = ({ children }) => {
     dispatch({ type: '[Entry] Add-Entry', payload: newEntry });
   };
 
+  const updateEntry = (entry: Entry) => {
+    dispatch({ type: '[Entry] Entry-Updated', payload: entry });
+  };
+
   const sideMenuOpen = useMemo((): ContextProps => {
-    return { ...state, addNewEntry };
+    return { ...state, addNewEntry, updateEntry };
   }, [state]);
 
   return <EntriesContext.Provider value={sideMenuOpen}>{children}</EntriesContext.Provider>;

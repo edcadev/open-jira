@@ -10,6 +10,12 @@ type UIActionType =
   | {
       type: 'UI - Set isAddingEntry';
       payload: boolean;
+    }
+  | {
+      type: 'UI - Start Dragging';
+    }
+  | {
+      type: 'UI - End Dragging';
     };
 
 export const uiReducer = (state: UIState, action: UIActionType): UIState => {
@@ -30,6 +36,18 @@ export const uiReducer = (state: UIState, action: UIActionType): UIState => {
       return {
         ...state,
         isAddingEntry: action.payload,
+      };
+
+    case 'UI - Start Dragging':
+      return {
+        ...state,
+        isDragging: true,
+      };
+
+    case 'UI - End Dragging':
+      return {
+        ...state,
+        isDragging: false,
       };
 
     default:
