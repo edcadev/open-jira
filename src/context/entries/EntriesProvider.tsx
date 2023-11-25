@@ -16,26 +16,7 @@ interface Props {
 }
 
 const ENTRIES_INITIAL_STATE: EntriesState = {
-  entries: [
-    {
-      id: crypto.randomUUID(),
-      description: 'Pendiente: In tempor cupidatat adipisicing Lorem cupidatat ex.',
-      status: 'pending',
-      createdAt: Date.now(),
-    },
-    {
-      id: crypto.randomUUID(),
-      description: 'En-Progreso: Magna pariatur culpa et in elit irure ad aliquip nulla.',
-      status: 'in-progress',
-      createdAt: Date.now() - 1000000,
-    },
-    {
-      id: crypto.randomUUID(),
-      description: 'Terminadas: Excepteur exercitation quis consequat quis non nulla incididunt esse.',
-      status: 'finished',
-      createdAt: Date.now() - 100000,
-    },
-  ],
+  entries: [],
 };
 
 export const EntriesProvider: FC<Props> = ({ children }) => {
