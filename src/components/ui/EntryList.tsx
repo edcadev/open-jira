@@ -33,7 +33,7 @@ export const EntryList: FC<Props> = ({ status }) => {
   const onDropEntry = (event: DragEvent<HTMLDivElement>) => {
     const id = event.dataTransfer.getData('text');
 
-    const entry = entries.find((e) => e.id === id)!;
+    const entry = entries.find((e) => e._id === id)!;
     entry.status = status;
     updateEntry(entry);
     endDragging();
@@ -61,7 +61,7 @@ export const EntryList: FC<Props> = ({ status }) => {
           {entriesByStatus.map((entry) => {
             return (
               <EntryCard
-                key={entry.id}
+                key={entry._id}
                 entry={entry}
               />
             );

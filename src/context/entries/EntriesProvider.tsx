@@ -1,8 +1,9 @@
 /* eslint-disable import/no-cycle */
 
-import { useReducer, type FC, type ReactNode, useMemo } from 'react';
+import { useReducer, type FC, type ReactNode, useMemo, useEffect } from 'react';
 
 import type { Entry } from '@/interfaces';
+import { entriesAPI } from '@/api';
 import type { ContextProps } from '.';
 
 import { EntriesContext, entriesReducer } from '.';
@@ -22,20 +23,30 @@ const ENTRIES_INITIAL_STATE: EntriesState = {
 export const EntriesProvider: FC<Props> = ({ children }) => {
   const [state, dispatch] = useReducer(entriesReducer, ENTRIES_INITIAL_STATE);
 
-  const addNewEntry = (description: string) => {
-    const newEntry: Entry = {
-      id: crypto.randomUUID(),
-      description,
-      createdAt: Date.now(),
-      status: 'pending',
-    };
+  const addNewEntry = async (description: string) => {
+    const { data } = await entriesAPI.post<Entry>('/entries', { description });
 
-    dispatch({ type: '[Entry] Add-Entry', payload: newEntry });
+    dispatch({ type: '[Entry] Add-Entry', payload: data });
   };
 
-  const updateEntry = (entry: Entry) => {
-    dispatch({ type: '[Entry] Entry-Updated', payload: entry });
+  const updateEntry = async ({ _id, description, status }: Entry) => {
+    try {
+      const { data } = await entriesAPI.put<Entry>(`/entries/${_id} `, { description, status });
+
+      dispatch({ type: '[Entry] Entry-Updated', payload: data });
+    } catch (error) {
+      console.log(error);
+    }
   };
+
+  const refreshEntries = async () => {
+    const { data } = await entriesAPI.get<Entry[]>('/entries');
+    dispatch({ type: '[Entry] Refresh-Data', payload: data });
+  };
+
+  useEffect(() => {
+    refreshEntries();
+  }, []);
 
   const sideMenuOpen = useMemo((): ContextProps => {
     return { ...state, addNewEntry, updateEntry };

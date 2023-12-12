@@ -9,6 +9,10 @@ type EntriesActionType =
   | {
       type: '[Entry] Entry-Updated';
       payload: Entry;
+    }
+  | {
+      type: '[Entry] Refresh-Data';
+      payload: Entry[];
     };
 
 export const entriesReducer = (state: EntriesState, action: EntriesActionType): EntriesState => {
@@ -23,7 +27,7 @@ export const entriesReducer = (state: EntriesState, action: EntriesActionType): 
       return {
         ...state,
         entries: state.entries.map((entry) => {
-          if (entry.id === action.payload.id) {
+          if (entry._id === action.payload._id) {
             const updatedEntry = {
               ...entry,
               status: action.payload.status,
@@ -34,6 +38,12 @@ export const entriesReducer = (state: EntriesState, action: EntriesActionType): 
 
           return entry;
         }),
+      };
+
+    case '[Entry] Refresh-Data':
+      return {
+        ...state,
+        entries: [...action.payload],
       };
 
     default:
